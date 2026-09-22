@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Entity, Repository } from 'typeorm';
 import { Workout, IWorkoutItem } from './entities/workout.entity.js';

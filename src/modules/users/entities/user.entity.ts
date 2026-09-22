@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Workout } from '../../workouts/entities/workout.entity.js';
+import { RoleEnum } from '../../../enums/role.enums.js';
 
 @Entity('users')
 export class User {
@@ -15,8 +16,8 @@ export class User {
   @Column()
   firstName: string;
 
-  @Column({ default: 'client' })
-  role: string;
+   @Column({ type: 'varchar', default: RoleEnum.CLIENT })
+  role: RoleEnum;
 
   @OneToMany(() => Workout, (workout) => workout.user)
   workouts: Workout[];
