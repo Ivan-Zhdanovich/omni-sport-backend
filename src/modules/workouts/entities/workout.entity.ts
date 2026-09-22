@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { User } from '../../users/entities/user.entity.js';
-
+import type { Relation } from 'typeorm';
 
 export interface IWorkoutItem {
   exerciseId?: string;   
@@ -22,10 +22,10 @@ export class Workout {
   type: string; // 'gym' | 'pool' | 'bike' | 'run'
 
   @ManyToOne(() => User, (user) => user.workouts, { onDelete: 'CASCADE' })
-  user: User; 
+  user: Relation<User>; 
 
   @ManyToOne(() => User, { nullable: true })
-  coach: User;
+  coach: Relation<User>;
 
   @CreateDateColumn({ type: 'timestamp' })
   startedAt: Date;

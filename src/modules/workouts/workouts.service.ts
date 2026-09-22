@@ -20,9 +20,12 @@ export class WorkoutsService {
     items: IWorkoutItem[], 
     notes?: string
   ): Promise<Workout> {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
+    let user = null;
+    if (userId && userId !== 'undefined') {
+      user = await this.userRepository.findOne({ where: { id: userId } });
+    }
     if (!user) {
-      throw new NotFoundException('Пользователь не найден');
+      throw new NotFoundException('`Пользователь с ID ${userId} не найден в системе');
     }
 
     const workout = this.workoutRepository.create({
@@ -39,7 +42,7 @@ export class WorkoutsService {
   async getHistoryByUserId(userId: string): Promise<Workout[]> {
     return await this.workoutRepository.find({
       where: { user: { id: userId } },
-      order: { startedAt: 'DESC' }, // Сначала новые
+      order: { startedAt: 'DESC' }, 
     });
   }
 }
